@@ -21,7 +21,7 @@ svg.append("rect")
 
 var g = svg.append("g");
 
-d3.json("https://github.com/mbostock/raw/4090846/us.json", function(error, us) {
+d3.json("http://bl.ocks.org/mbostock/raw/2206590/", function(error, us) {
   if (error) throw error;
 
   g.append("g")
