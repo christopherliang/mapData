@@ -1,3 +1,12 @@
+var dropdown = document.getElementById("state");
+var userState = dropdown.options[dropdown.selectedIndex].value;
+/*d3.select('#state')
+  .on('change',function(){
+      
+      userState = dropdown.options[dropdown.selectedIndex].value;
+      console.log(userState);
+  });*/
+console.log(userState);
 var isDemo = true
 
 
@@ -21,7 +30,7 @@ var pie = d3.layout.pie()
     .sort(null)
     .value(function(d) { 
 
-	return d.Maine; });
+	return d.Alabama; });
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
@@ -31,7 +40,12 @@ var svg = d3.select("body").append("svg")
 
 d3.csv("https://raw.githubusercontent.com/christopherliang/mapData/master/newDemo.csv", type, function(error, data) {
   if (error) throw error;
-  
+  data.forEach(function(d){
+      var headerNames=d3.keys(data[0]);
+      for (x=1;x<headerNames.length;x++){
+	  d[headerNames[x]] = +d[headerNames[x]];
+      }
+  });
   var g = svg.selectAll(".arc")
       .data(pie(data))
     .enter().append("g")
@@ -53,6 +67,6 @@ d3.csv("https://raw.githubusercontent.com/christopherliang/mapData/master/newDem
 });
 
 function type(d) {
-  d.Maine = +d.Maine;
+  d.Alambama = +d.Alambama;
   return d;
 }
