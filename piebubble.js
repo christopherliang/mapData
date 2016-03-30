@@ -3,7 +3,7 @@ var userState = dropdown.options[dropdown.selectedIndex].value;
 var repeat = function(){
 
 var isDemo = true
-
+d3.select("#error").html("");
 
 
 var width = 960,
@@ -60,11 +60,13 @@ d3.csv("https://raw.githubusercontent.com/christopherliang/mapData/master/newDem
       .attr("dy", ".35em")
       .text(function(d) { return d.data.Candidate; });
 });
-
+var holder;
 function type(d) {
     //console.log(d);
     //console.log("then");
-      var headerNames=d3.keys(d[0]);
+      var headerNames=d3.keys(d);
+      holder=headerNames;
+      console.log(d3.keys(d));
       for (x=1;x<headerNames.length;x++){
 	  d[headerNames[x]] = +d[headerNames[x]];
       }
@@ -76,19 +78,23 @@ d3.select('#state')
       //var headerNames=d3.keys(data[0]);
       userState = dropdown.options[dropdown.selectedIndex].value;
       console.log(userState);
-      d3.select("svg")
+      console.log(holder);
+     /* d3.select("svg")
 	  .remove();
-      repeat();
-     /* for (x=1;x<headerNames.length;x++){
-	  if (headerNames[x]==userState){
+      repeat();*/
+     for (x=1;x<holder.length;x++){
+	  if (holder[x]==userState){
 	      d3.select("svg")
 		  .remove();
 	      repeat();
+	      breakl
 	  }
 	  else{
+	      console.log("being done")
 	      d3.select("#error").html("Delegates in this state have not voted yet");
+	     
 	  }
-      }*/
+      }
       /*var pie = d3.layout.pie()
 	  .sort(null)
 	  .value(function(d) { 
