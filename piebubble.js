@@ -3,6 +3,7 @@ var userState = dropdown.options[dropdown.selectedIndex].value;
 var repeat = function(){
 
 var isDemo = true
+if (isDemo){
 d3.select("#error").html("");
 
 
@@ -104,5 +105,6 @@ d3.select('#state')
 	      return d[userState]; });*/
   });
 console.log(userState);
+}
 }
 repeat();
