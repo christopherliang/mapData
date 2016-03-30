@@ -37,7 +37,7 @@ var repeat = function(){
             .append("g")
             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-        d3.csv("https://raw.githubusercontent.com/christopherliang/mapData/master/newDemo.csv", type, function(error, data) {
+        d3.csv("https://raw.githubusercontent.com/christopherliang/mapData/master/demo.csv", type, function(error, data) {
             if (error) throw error;
 
             var g = svg.selectAll(".arc")
@@ -113,7 +113,7 @@ var repeat = function(){
             return d[userState];
         };
 
-        d3.csv("https://raw.githubusercontent.com/christopherliang/mapData/master/newRepub.csv", type, function(error, data) {
+        d3.csv("https://raw.githubusercontent.com/christopherliang/mapData/master/repub.csv", type, function(error, data) {
             if (error) throw error;
 
             var g = svg.selectAll(".arc")
