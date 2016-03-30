@@ -1,12 +1,7 @@
 var dropdown = document.getElementById("state");
 var userState = dropdown.options[dropdown.selectedIndex].value;
-/*d3.select('#state')
-  .on('change',function(){
-      
-      userState = dropdown.options[dropdown.selectedIndex].value;
-      console.log(userState);
-  });*/
-console.log(userState);
+var repeat = function(){
+
 var isDemo = true
 
 
@@ -29,8 +24,10 @@ var labelArc = d3.svg.arc()
 var pie = d3.layout.pie()
     .sort(null)
     .value(function(d) { 
-
-	return d.Alabama; });
+	
+	console.log(d[userState]);
+	
+	return d[userState]; });
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
@@ -40,12 +37,7 @@ var svg = d3.select("body").append("svg")
 
 d3.csv("https://raw.githubusercontent.com/christopherliang/mapData/master/newDemo.csv", type, function(error, data) {
   if (error) throw error;
-  data.forEach(function(d){
-      var headerNames=d3.keys(data[0]);
-      for (x=1;x<headerNames.length;x++){
-	  d[headerNames[x]] = +d[headerNames[x]];
-      }
-  });
+  
   var g = svg.selectAll(".arc")
       .data(pie(data))
     .enter().append("g")
@@ -57,16 +49,54 @@ d3.csv("https://raw.githubusercontent.com/christopherliang/mapData/master/newDem
       .attr("d", arc)
       .style("fill", function(d) { 
 	  return color(d.data.Candidate); });
-
   g.append("text")
       .transition()
       .duration(1000)
-      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
+      .attr("transform", function(d) { 
+	  //console.log(d);
+	  //console.log(labelArc.centroid(d));
+	  
+	  return "translate(" + labelArc.centroid(d) + ")"; })
       .attr("dy", ".35em")
       .text(function(d) { return d.data.Candidate; });
 });
 
 function type(d) {
-  d.Alambama = +d.Alambama;
+    //console.log(d);
+    //console.log("then");
+      var headerNames=d3.keys(d[0]);
+      for (x=1;x<headerNames.length;x++){
+	  d[headerNames[x]] = +d[headerNames[x]];
+      }
+    //console.log(d)
   return d;
 }
+d3.select('#state')
+  .on('change',function(){
+      //var headerNames=d3.keys(data[0]);
+      userState = dropdown.options[dropdown.selectedIndex].value;
+      console.log(userState);
+      d3.select("svg")
+	  .remove();
+      repeat();
+     /* for (x=1;x<headerNames.length;x++){
+	  if (headerNames[x]==userState){
+	      d3.select("svg")
+		  .remove();
+	      repeat();
+	  }
+	  else{
+	      d3.select("#error").html("Delegates in this state have not voted yet");
+	  }
+      }*/
+      /*var pie = d3.layout.pie()
+	  .sort(null)
+	  .value(function(d) { 
+	      
+	      console.log(d[userState]);
+	      
+	      return d[userState]; });*/
+  });
+console.log(userState);
+}
+repeat();
