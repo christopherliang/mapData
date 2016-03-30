@@ -1,8 +1,9 @@
 var dropdown = document.getElementById("state");
 var userState = dropdown.options[dropdown.selectedIndex].value;
+var isDemo = true;
+
 var repeat = function(){
 
-var isDemo = true
 if (isDemo){
 d3.select("#error").html("");
 
@@ -74,6 +75,8 @@ function type(d) {
     //console.log(d)
   return d;
 }
+
+
 d3.select('#state')
   .on('change',function(){
       //var headerNames=d3.keys(data[0]);
@@ -88,7 +91,7 @@ d3.select('#state')
 	      d3.select("svg")
 		  .remove();
 	      repeat();
-	      breakl
+	      break;
 	  }
 	  else{
 	      console.log("being done")
@@ -108,3 +111,15 @@ console.log(userState);
 }
 }
 repeat();
+button=document.getElementById("changeParty");
+button.addEventListener("click",function(){
+    console.log("ere");
+    if(isDemo){
+	isDemo=false;
+    }
+    else{
+	isDemo=true;
+    }
+})
+console.log(isDemo);
+
